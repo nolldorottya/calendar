@@ -1,0 +1,437 @@
+@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600&display=swap");
+
+:root {
+  --darker: rgba(125, 97, 239, 1);
+  --lighter: rgba(226, 114, 188, 1);
+  --border: rgba(125, 97, 239, 0.2);
+}
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+html {
+  font-size: 62.5%;
+}
+body {
+  font-family: "Rajdhani", sans-serif;
+  font-weight: 600;
+  box-sizing: border-box;
+  padding: 20px 0;
+  width: 1200px;
+  max-width: 90%;
+  background: linear-gradient(var(--darker), var(--lighter));
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  margin: auto;
+  color: var(--darker);
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(3px);
+  z-index: 5;
+}
+img {
+  max-width: 100%;
+}
+.hidden {
+  display: none !important;
+}
+li {
+  list-style: none;
+}
+.main {
+  height: 90vh;
+  width: 100%;
+}
+.flex_row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+.flex_row--task {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 20px;
+}
+.flex_column {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  gap: 20px;
+}
+.flex_column--no-gap {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+.border_radius {
+  border-radius: 5px;
+}
+
+.welcome_message {
+  width: 100%;
+  padding: 20px 10px;
+  background-color: aliceblue;
+  font-size: 3rem;
+  letter-spacing: 1.8px;
+}
+
+.main_section {
+  height: 100%;
+}
+.to_do,
+.to_do--completed,
+.third_column {
+  width: 100%;
+  height: 100%;
+}
+.to_do,
+.to_do--completed {
+  background-color: aliceblue;
+  padding: 10px 0;
+}
+.calendar,
+.weather {
+  height: 100%;
+  /* background-color: aliceblue; */
+}
+.list,
+.title {
+  height: 100%;
+}
+
+.title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 2rem;
+  border-bottom: 2px solid var(--border);
+  height: 10%;
+  color: var(--darker);
+  padding: 0 10px 10px 10px;
+}
+.list {
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  position: relative;
+}
+
+.add_task {
+  width: 80%;
+  height: 100%;
+  outline: 2px solid var(--border);
+  border: none;
+  font-size: 2rem;
+  color: var(--darker);
+}
+.add_task:focus {
+  outline: 2px solid var(--darker);
+  font-size: 2rem;
+  color: var(--darker);
+}
+.add_task--btn {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--border);
+  background-color: white;
+  color: var(--border);
+  font-size: 3rem;
+  font-weight: 100;
+  cursor: pointer;
+}
+.add_task_list {
+  height: 10%;
+  border-radius: 0 0 5px 5px;
+  padding: 0 10px 5px 10px;
+}
+
+.list input:not(.add_task) {
+  opacity: 0;
+  cursor: default;
+}
+.checkbox,
+.checkbox_checked,
+span {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  height: 25px;
+  width: 25px;
+  background-color: white;
+}
+.checkbox_checked {
+  clip-path: polygon(23% 54%, 10% 61%, 48% 89%, 90% 11%, 68% 11%, 44% 68%);
+  background-color: var(--darker);
+}
+
+.list p {
+  padding-left: 30px;
+  font-size: 1.6rem;
+  font-weight: 400;
+}
+
+.lista {
+  padding: 10px;
+  width: 100%;
+  height: 100%;
+}
+.lista_ul li {
+  display: flex;
+  justify-content: space-between;
+  height: 50px;
+  align-items: center;
+  font-size: 2rem;
+}
+
+.lista_ul li div {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-size: 2.8rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.fa-solid {
+  color: var(--lighter);
+}
+.fa-regular {
+  color: var(--darker);
+}
+.clear_tasks_btn {
+  width: 100%;
+  height: 100%;
+  background-color: var(--darker);
+  color: white;
+  font-size: 1.8rem;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.calendar {
+  /*  */
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  align-content: flex-start;
+  gap: 1%;
+  overflow: auto;
+  flex-direction: row;
+}
+.calendar * {
+  border: 1px solid var(--darker);
+  font-size: 1.5rem;
+  border-radius: 50%;
+  width: 13%;
+  height: 13%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.calendar_full {
+  background-color: aliceblue;
+  text-align: center;
+  height: 70%;
+}
+.days {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: auto;
+  font-size: 1.2rem;
+  gap: 1%;
+  height: 15%;
+  border-bottom: 2px solid var(--border);
+}
+.days * {
+  color: var(--darker);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 13%;
+}
+.prompt_message {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  max-width: 90%;
+  height: 500px;
+  max-height: 90%;
+  background-color: white;
+  z-index: 6;
+  gap: 2%;
+}
+
+.prompt_message h1 {
+  font-size: 4rem;
+}
+.prompt_message h3 {
+  font-size: 2rem;
+}
+.prompt_message img {
+  width: 70%;
+}
+.name_input,
+.name_input:focus {
+  width: 70%;
+  height: 10%;
+  color: var(--lighter);
+  border: 1px solid var(--border);
+  outline: none;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.name_input--btn,
+.choose_theme--btn {
+  width: 35%;
+  height: 10%;
+  border: none;
+  background-color: var(--darker);
+  border-radius: 5px;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.choose_theme {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  max-width: 90%;
+  height: 300px;
+  max-height: 90%;
+  background-color: white;
+  z-index: 6;
+  gap: 10%;
+  padding: 0 20px;
+}
+.themes img {
+  border-radius: 5px;
+  width: 30%;
+  cursor: pointer;
+}
+.choose_theme h1 {
+  font-size: 3rem;
+}
+.quotes {
+  background-color: aliceblue;
+  height: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 1.5rem;
+  padding: 0 20px;
+  font-style: italic;
+}
+.peter {
+  text-align: end;
+  padding-top: 10px;
+  font-style: normal;
+}
+@media (min-width: 700px) {
+  .calendar_full_mobile {
+    display: none;
+  }
+}
+@media (max-width: 700px) {
+  .date {
+    font-size: 1.8rem;
+  }
+  .third_column {
+    display: none;
+  }
+  .days_mobile {
+    padding: 10px;
+    width: 100%;
+    display: flex;
+    flex-wrap: no-wrap;
+    align-items: center;
+    flex-direction: row;
+    background-color: aliceblue;
+  }
+  .days_mobile div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    font-size: 1.2rem;
+  }
+  .calendar_mobile div {
+    padding: 10px 3px;
+    background-color: var(--border);
+    font-size: 1.5rem;
+    width: calc(100% / 7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .calendar_mobile {
+    padding: 10px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    flex-direction: row;
+    background-color: aliceblue;
+  }
+  .calendar_full_row_mobile {
+    width: 50%;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    overflow: auto;
+    flex-direction: column;
+    background-color: aliceblue;
+  }
+
+  .quotes_mobile {
+    width: 50%;
+    background-color: aliceblue;
+    height: 100%;
+  }
+  .calendar_full_mobile {
+    display: flex;
+    width: 100%;
+
+    justify-content: space-between;
+    gap: 20px;
+  }
+}
+
+.calendar_border {
+  background-color: var(--border);
+  border: none;
+  color: white;
+}

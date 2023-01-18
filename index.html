@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-do app</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://kit.fontawesome.com/e448a6df22.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <section class="hidden choose_theme border_radius">
+    <h1>Please, choose a color theme!</h1>
+    <div class="themes flex_row">
+      <img src="/purple.jpg" alt="purple" class="purple">
+      <img src="/green.jpg" alt="green" class="green">
+      <img src="/black.jpg" alt="black" class="black">
+    </div>
+    <button class="choose_theme--btn">Cool!</button>
+  </section>
+  <section class="prompt_message border_radius hidden">
+    <img src="/19836509_6156033.jpg" alt="img">
+    <h1>I'm glad you're here!</h1>
+    <h3>How can i call you?</h3>
+    <input type="text" class="name_input border_radius">
+    <button class="name_input--btn">Let's go!</button>
+  </section>
+
+  <div class="flex_column main">
+    <div class="flex_row welcome_message border_radius">
+      <p class="name">
+      </p>
+      <p class="date"></p>
+    </div>
+
+    <div class="calendar_full_mobile">
+      <div class="calendar_full_row_mobile border_radius">
+        <div class="days_mobile">
+          <div>Mon</div>
+          <div>Tues</div>
+          <div>Wed</div>
+          <div>Thur</div>
+          <div>Fri</div>
+          <div>Sat</div>
+          <div>Sun</div>
+        </div>
+        <div class="calendar_mobile border_radius">
+          <div>1</div>
+          <div>2</div>
+          <div>3</div>
+          <div>4</div>
+          <div>5</div>
+          <div>6</div>
+          <div>7</div>
+          <div>8</div>
+          <div>9</div>
+          <div>10</div>
+          <div>11</div>
+          <div>12</div>
+          <div>13</div>
+          <div>14</div>
+          <div>15</div>
+          <div>16</div>
+          <div>17</div>
+          <div>18</div>
+          <div>19</div>
+          <div>20</div>
+          <div>21</div>
+          <div>22</div>
+          <div>23</div>
+          <div>24</div>
+          <div>25</div>
+          <div>26</div>
+          <div>27</div>
+          <div>28</div>
+          <div>29</div>
+          <div>30</div>
+          <div>31</div>
+        </div>
+      </div>
+      <div class="quotes_mobile border_radius"></div>
+    </div>
+
+    <div class="flex_row main_section border_radius">
+      <div class="flex_column--no-gap to_do border_radius">
+        <div class="title">
+          <p>To-do</p>
+          <p class="title_date"></p>
+        </div>
+        <div class="lista">
+          <ul class="lista_ul">
+
+          </ul>
+        </div>
+
+
+        <div class="list add_task_list flex_row--task">
+          <input type="text" class="add_task border_radius">
+          <button class="add_task--btn">+</button>
+        </div>
+
+      </div>
+
+      <div class="flex_column--no-gap to_do--completed border_radius">
+        <div class="title">
+          <p>Completed tasks</p>
+          <p class="title_date"></p>
+        </div>
+        <div class="lista lista_completed">
+          <ul class="lista_ul lista_ul_completed">
+
+          </ul>
+        </div>
+
+
+        <div class="list add_task_list flex_row--task clear_tasks">
+          <button class="clear_tasks_btn">Clear Tasks</button>
+        </div>
+      </div>
+
+
+      <div class="flex_column third_column">
+
+        <div class="calendar_full border_radius">
+          <div class="days flex_row">
+            <div>Mon</div>
+            <div>Tues</div>
+            <div>Wed</div>
+            <div>Thur</div>
+            <div>Fri</div>
+            <div>Sat</div>
+            <div>Sun</div>
+          </div>
+          <div class="calendar border_radius">
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            <div>4</div>
+            <div>5</div>
+            <div>6</div>
+            <div>7</div>
+            <div>8</div>
+            <div>9</div>
+            <div>10</div>
+            <div>11</div>
+            <div>12</div>
+            <div>13</div>
+            <div>14</div>
+            <div>15</div>
+            <div>16</div>
+            <div>17</div>
+            <div>18</div>
+            <div>19</div>
+            <div>20</div>
+            <div>21</div>
+            <div>22</div>
+            <div>23</div>
+            <div>24</div>
+            <div>25</div>
+            <div>26</div>
+            <div>27</div>
+            <div>28</div>
+            <div>29</div>
+            <div>30</div>
+            <div>31</div>
+          </div>
+        </div>
+
+        <div class="quotes border_radius"></div>
+      </div>
+    </div>
+
+
+    <div class="overlay hidden"></div>
+    <script type="module" src="script.js"></script>
+</body>
+
+</html>
