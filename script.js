@@ -1,6 +1,6 @@
 "use strict";
 import quotes from "./quotes.json" assert { type: "json" };
-// TODO deletetodo id-ja! kell mindenhova az x és a pipa!
+
 const addTask = document.querySelector(".add_task");
 const addTaskBtn = document.querySelector(".add_task--btn");
 const name = document.querySelector(".name");
@@ -21,8 +21,16 @@ const quote = document.querySelector(".quotes");
 const days = document.querySelectorAll(".calendar > div");
 const date = document.querySelector(".date");
 const titleDates = document.querySelectorAll(".title_date");
-let daysinfo = new Map();
-const todosArrSaved = [];
+
+// let list = document.createElement("li");
+// let btn = document.createElement("div");
+// let xMark = document.createElement("div");
+// let check = document.createElement("div");
+// let checkCompleted = document.createElement("div");
+
+const todosArrSaved = localStorage.getItem("todosArrSaved")
+  ? JSON.parse(localStorage.getItem("todosArrSaved"))
+  : [];
 let todayTodo;
 //MOBILE/////////////////////////
 
@@ -30,6 +38,7 @@ const addQuote = () => {
   let randomIndex = Math.trunc(Math.random() * quotes.length);
   quote.innerHTML = `<p>"${quotes[randomIndex].text}"</p> <p class="peter">	&#8212; Peter Griffin</p>`;
 };
+
 // choose theme
 purpleTheme.addEventListener("click", () => {
   document.documentElement.style.setProperty(
@@ -109,19 +118,25 @@ for (const titleDate of titleDates) {
   );
 }
 
-// document.addEventListener("keydown", function (e) {
-//   if (e.key === "Enter" && addTask.value !== "") {
-//     let dayNumber;
-//     for (const titleDateNumber of titleDates) {
-//       dayNumber = titleDateNumber.textContent.slice(-2).trim();
-//     }
-//     const dailytaskForDay = todosArrSaved[dayNumber - 1].dailytask;
-//     dailytaskForDay.push(addTask.value);
-//     createTodo(dailytaskForDay);
-//     // createTodo(todosArr);
-//     addTask.value = "";
+document.addEventListener("keydown", function (e) {
+  if (e.key === "Enter" && addTask.value !== "") {
+    let dayNumber;
+    for (const titleDateNumber of titleDates) {
+      dayNumber = titleDateNumber.textContent.slice(-2).trim();
+    }
+    const dailytaskForDay = todosArrSaved[dayNumber - 1].dailytask;
+    dailytaskForDay.push(addTask.value);
+    addTask.value = "";
+    createTodo(dailytaskForDay);
+  }
+});
+// const dayNumberFunction = () => {
+//   let dayNumber;
+//   for (const titleDateNumber of titleDates) {
+//     dayNumber = titleDateNumber.textContent.slice(-2).trim();
 //   }
-// });
+//   console.log(dayNumber);
+// };
 addTaskBtn.addEventListener("click", () => {
   if (addTask.value !== "") {
     let dayNumber;
@@ -131,36 +146,33 @@ addTaskBtn.addEventListener("click", () => {
     const dailytaskForDay = todosArrSaved[dayNumber - 1].dailytask;
     dailytaskForDay.push(addTask.value);
     addTask.value = "";
-
-    // console.log(dailytaskForDay);
     createTodo(dailytaskForDay);
   }
+
+  // dayNumberFunction();
 });
 
 const createTodo = (arr) => {
   listaUl.innerHTML = "";
 
-  console.log(arr);
   let dayNumber;
   for (const titleDateNumber of titleDates) {
     dayNumber = titleDateNumber.textContent.slice(-2).trim();
   }
 
-  let list = document.createElement("li");
-  let btn = document.createElement("div");
-  let xMark = document.createElement("div");
-  let check = document.createElement("div");
-  let checkCompleted = document.createElement("div");
-  arr.forEach((todo, id) => {
+  arr.map((todo, id) => {
+    let list = document.createElement("li");
+    let btn = document.createElement("div");
+    let xMark = document.createElement("div");
+    let check = document.createElement("div");
+    let checkCompleted = document.createElement("div");
     check.innerHTML = '<i class="fa-regular fa-circle-check"></i>';
     xMark.innerHTML = '<i class="fa-solid fa-circle-xmark"></i>';
     list.innerText = todo;
-    checkCompleted.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
 
     xMark.addEventListener("click", () => {
-      check.innerHTML = ""; //??????
-      xMark.innerHTML = ""; //??????
-      console.log(id);
+      check.innerHTML = "";
+      xMark.innerHTML = "";
       deleteTodo(id);
     });
     check.addEventListener("click", () => {
@@ -171,7 +183,6 @@ const createTodo = (arr) => {
       xMark.innerHTML = "";
       listaCompletedUl.appendChild(list);
       todosArrSaved[dayNumber - 1].completedDailyTasks.push(todo);
-      console.log(todosArrSaved[dayNumber - 1].completedDailyTasks);
       deleteTodo(id);
     });
     list.appendChild(btn);
@@ -179,8 +190,11 @@ const createTodo = (arr) => {
     btn.appendChild(check);
     listaUl.appendChild(list);
   });
+  if (arr.length !== 0) {
+    days[dayNumber - 1].classList.add("calendar_border");
+  }
 
-  console.log(todosArrSaved[dayNumber - 1]);
+  localStorage.setItem("todosArrSaved", JSON.stringify(todosArrSaved));
 };
 
 const deleteTodo = (index) => {
@@ -190,6 +204,12 @@ const deleteTodo = (index) => {
   }
   const dailytaskForDay = todosArrSaved[dayNumber - 1].dailytask;
   dailytaskForDay.splice(index, 1);
+
+  if (index === 0) {
+    days[dayNumber - 1].classList.remove("calendar_border");
+  }
+  localStorage.setItem("todosArrSaved", JSON.stringify(todosArrSaved));
+
   createTodo(dailytaskForDay);
 };
 
@@ -210,10 +230,40 @@ const calendarFunction = () => {
       calendar.children[i].style.border = "none";
     }
     if (calendar.children[i].textContent == now.getDate()) {
+      let dayNumber = Number(calendar.children[i].textContent.slice(-2).trim());
       calendar.children[i].style.backgroundColor = "var(--darker)";
       calendar.children[i].style.color = "white";
+
+      todosArrSaved[dayNumber - 1].completedDailyTasks.map((x) => {
+        let btn = document.createElement("div");
+        let xMark = document.createElement("div");
+        let check = document.createElement("div");
+        let checkCompleted = document.createElement("div");
+        checkCompleted.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+
+        let list = document.createElement("li");
+        list.innerText = x;
+        btn.appendChild(checkCompleted);
+        list.appendChild(btn);
+
+        listaCompletedUl.appendChild(list);
+        check.addEventListener("click", () => {
+          checkCompleted.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+
+          check.innerHTML = "";
+          xMark.innerHTML = "";
+          btn.appendChild(checkCompleted);
+
+          list.appendChild(btn);
+
+          listaCompletedUl.appendChild(list);
+        });
+      });
+
+      createTodo(todosArrSaved[dayNumber - 1].dailytask);
     }
   }
+  localStorage.setItem("todosArrSaved", JSON.stringify(todosArrSaved));
 };
 calendarFunction();
 for (const day of days) {
@@ -222,42 +272,23 @@ for (const day of days) {
     dailytask: [],
     completedDailyTasks: [],
   });
+  let dayNumb = Number(day.textContent.slice(-2).trim());
+  if (todosArrSaved[dayNumb - 1].dailytask.length !== 0) {
+    days[dayNumb - 1].classList.add("calendar_border");
+  }
+  // if (
+  //   todosArrSaved[dayNumb - 1].dailytask.length === 0 &&
+  //   todosArrSaved[dayNumb - 1].completedDailyTasks.length !== 0
+  // ) {
+  //   days[dayNumb - 1].classList.add("completed_border");
+  // }
 }
+
 for (const day of days) {
-  // console.log(todosArrSaved);
   day.addEventListener("click", () => {
-    todayTodo = todosArrSaved.find((x) => x.dayNumber == `${day.textContent}`);
-    listaUl.innerHTML = "";
-    listaCompletedUl.innerHTML = "";
-    todayTodo.dailytask.map((x) => {
-      const list = document.createElement("li");
-      list.innerText = x;
-      listaUl.appendChild(list);
-    });
-    todayTodo.completedDailyTasks.map((x) => {
-      const list = document.createElement("li");
-      list.innerText = x;
-      listaCompletedUl.appendChild(list);
-    });
-
-    // console.log(todayTodo);
-    // console.log(...todosArrSaved[dayNumber - 1].dailytask);
-    // const node = todosArrSaved[dayNumber - 1].dailytask;
-    // const [obj] = node;
-    // const { dailytask } = node;
-
-    // listaUl.insertAdjacentHTML(
-    //   "afterbegin",
-    //   `...${todosArrSaved[dayNumber - 1].dailytask}`
-    // );
-    // let savedList = document.createElement("li");
-    // const node = document.createTextNode("valami");
-    // savedList.appendChild(node);
-    // savedList.innerText = todosArrSaved[dayNumber - 1].dailytask;
-    // listaUl.appendChild(savedList);
-    // console.log(todosArrSaved[dayNumber - 1].dailytask);
-
-    // listaUl.textContent = todosArrSaved[dayNumber - 1].dailytask;
+    let allDay = [...days];
+    allDay.map((x) => (x.style.border = "none"));
+    day.style.border = "3px dashed var(--lighter)";
     for (const titleDate of titleDates) {
       const now2 = new Date(
         now.getFullYear(),
@@ -270,27 +301,82 @@ for (const day of days) {
         dateOptions2
       ).format(now2);
     }
-    // console.log(day.textContent);
-    // console.log(todosArrSaved);
-    // for (const todosArrSavedElement of todosArrSaved) {
-    //   if (`${todosArrSavedElement}.${day.textContent}`) {
-    //     console.log(`${todosArrSavedElement}`);
-    //   }
-    //   if (!`${todosArrSavedElement}.${day.textContent}`) {
-    //     todosArrSaved.push(todosArrSavedElement);
-    //   }
-    // }
-    // daysinfo.set(`${day.textContent}`, todosArrforMap);
-    // console.log(daysinfo);
-    // listaUl.textContent = daysinfo.get(`${day.textContent}`);
-    // console.log(daysinfo.get("1"));
-    // console.log(daysinfo.get("2"));
-  });
-  if (Number(day.textContent) !== now.getDate()) {
-    day.addEventListener("click", () => {
-      day.classList.toggle("calendar_border");
+
+    let dayNumber;
+    for (const titleDateNumber of titleDates) {
+      dayNumber = titleDateNumber.textContent.slice(-2).trim();
+    }
+
+    todayTodo = todosArrSaved.find((x) => x.dayNumber == `${day.textContent}`);
+
+    listaUl.innerHTML = "";
+    listaCompletedUl.innerHTML = "";
+
+    todayTodo.dailytask.map((x, index) => {
+      let btn = document.createElement("div");
+      let xMark = document.createElement("div");
+      let check = document.createElement("div");
+      let list = document.createElement("li");
+      check.innerHTML = '<i class="fa-regular fa-circle-check"></i>';
+      xMark.innerHTML = '<i class="fa-solid fa-circle-xmark"></i>';
+      list.innerText = x;
+      list.appendChild(btn);
+      btn.appendChild(xMark);
+      btn.appendChild(check);
+      listaUl.appendChild(list);
+
+      xMark.addEventListener("click", () => {
+        let xMark = document.createElement("div");
+        let check = document.createElement("div");
+
+        check.innerHTML = "";
+        xMark.innerHTML = "";
+        deleteTodo(index);
+      });
+      check.addEventListener("click", () => {
+        let btn = document.createElement("div");
+        let xMark = document.createElement("div");
+        let check = document.createElement("div");
+        let checkCompleted = document.createElement("div");
+        let list = document.createElement("li");
+        btn.appendChild(checkCompleted);
+        checkCompleted.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+        list.innerText = x;
+        list.appendChild(btn);
+        check.innerHTML = "";
+        xMark.innerHTML = "";
+        listaCompletedUl.appendChild(list);
+        deleteTodo(index);
+      });
     });
-  }
+    todayTodo.completedDailyTasks.map((x) => {
+      let btn = document.createElement("div");
+      let xMark = document.createElement("div");
+      let check = document.createElement("div");
+      let checkCompleted = document.createElement("div");
+      checkCompleted.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+
+      let list = document.createElement("li");
+      list.innerText = x;
+      btn.appendChild(checkCompleted);
+      list.appendChild(btn);
+
+      listaCompletedUl.appendChild(list);
+      check.addEventListener("click", () => {
+        checkCompleted.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+
+        check.innerHTML = "";
+        xMark.innerHTML = "";
+        btn.appendChild(checkCompleted);
+
+        list.appendChild(btn);
+
+        listaCompletedUl.appendChild(list);
+        todosArrSaved[dayNumber - 1].completedDailyTasks.push(x);
+        deleteTodo(id);
+      });
+    });
+  });
 }
 
 clearTasks.addEventListener("click", () => {
@@ -300,6 +386,5 @@ clearTasks.addEventListener("click", () => {
   }
   todosArrSaved[dayNumber - 1].completedDailyTasks = [];
   listaCompletedUl.innerHTML = "";
+  localStorage.setItem("todosArrSaved", JSON.stringify(todosArrSaved));
 });
-
-console.log(todosArrSaved);

@@ -52,6 +52,24 @@ li {
   height: 90vh;
   width: 100%;
 }
+/* .choose {
+  margin: auto;
+  border-radius: 5px; */
+/* width: 50%; */
+/* height: 10%;
+  display: flex;
+  background-color: aliceblue;
+  justify-content: center;
+  gap: 20px;
+} */
+/* .choose img {
+  padding: 20px;
+} */
+/* .welcome_message img {
+  width: 30px;
+} */
+
+/*  */
 .flex_row {
   display: flex;
   justify-content: space-between;
@@ -237,7 +255,8 @@ span {
   flex-direction: row;
 }
 .calendar * {
-  border: 1px solid var(--darker);
+  /* border: 1px solid var(--darker); */
+
   font-size: 1.5rem;
   border-radius: 50%;
   width: 13%;
@@ -281,7 +300,7 @@ span {
   transform: translate(-50%, -50%);
   width: 500px;
   max-width: 90%;
-  height: 500px;
+  height: 700px;
   max-height: 90%;
   background-color: white;
   z-index: 6;
@@ -292,7 +311,7 @@ span {
   font-size: 4rem;
 }
 .prompt_message h3 {
-  font-size: 2rem;
+  font-size: 3rem;
 }
 .prompt_message img {
   width: 70%;
@@ -311,7 +330,7 @@ span {
 .name_input--btn,
 .choose_theme--btn {
   width: 35%;
-  height: 10%;
+  height: 8%;
   border: none;
   background-color: var(--darker);
   border-radius: 5px;
@@ -337,10 +356,18 @@ span {
   gap: 10%;
   padding: 0 20px;
 }
+.themes {
+  /* border: 1px solid red; */
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  padding: 10px;
+}
 .themes img {
   border-radius: 5px;
-  width: 30%;
+  width: 10%;
   cursor: pointer;
+  /* margin: auto; */
 }
 .choose_theme h1 {
   font-size: 3rem;
@@ -432,6 +459,11 @@ span {
 
 .calendar_border {
   background-color: var(--border);
+  border: none;
+  color: white;
+}
+.completed_border {
+  background-color: yellow;
   border: none;
   color: white;
 }
