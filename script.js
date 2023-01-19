@@ -1,5 +1,5 @@
 "use strict";
-import quotes from "./quotes.json" assert { type: "json" };
+import quotes from "/quotes.json" assert { type: "json" };
 
 const addTask = document.querySelector(".add_task");
 const addTaskBtn = document.querySelector(".add_task--btn");
@@ -22,12 +22,6 @@ const days = document.querySelectorAll(".calendar > div");
 const date = document.querySelector(".date");
 const titleDates = document.querySelectorAll(".title_date");
 
-// let list = document.createElement("li");
-// let btn = document.createElement("div");
-// let xMark = document.createElement("div");
-// let check = document.createElement("div");
-// let checkCompleted = document.createElement("div");
-
 const todosArrSaved = localStorage.getItem("todosArrSaved")
   ? JSON.parse(localStorage.getItem("todosArrSaved"))
   : [];
@@ -38,6 +32,7 @@ const addQuote = () => {
   let randomIndex = Math.trunc(Math.random() * quotes.length);
   quote.innerHTML = `<p>"${quotes[randomIndex].text}"</p> <p class="peter">	&#8212; Peter Griffin</p>`;
 };
+addQuote();
 
 // choose theme
 purpleTheme.addEventListener("click", () => {
@@ -130,13 +125,7 @@ document.addEventListener("keydown", function (e) {
     createTodo(dailytaskForDay);
   }
 });
-// const dayNumberFunction = () => {
-//   let dayNumber;
-//   for (const titleDateNumber of titleDates) {
-//     dayNumber = titleDateNumber.textContent.slice(-2).trim();
-//   }
-//   console.log(dayNumber);
-// };
+
 addTaskBtn.addEventListener("click", () => {
   if (addTask.value !== "") {
     let dayNumber;
