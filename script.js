@@ -1,5 +1,4 @@
 "use strict";
-import quotes from "/quotes.json" assert { type: "json" };
 
 const addTask = document.querySelector(".add_task");
 const addTaskBtn = document.querySelector(".add_task--btn");
@@ -18,12 +17,6 @@ const todosArrSaved = localStorage.getItem("todosArrSaved")
   ? JSON.parse(localStorage.getItem("todosArrSaved"))
   : [];
 let todayTodo;
-
-const addQuote = () => {
-  let randomIndex = Math.trunc(Math.random() * quotes.length);
-  quote.innerHTML = `<p>"${quotes[randomIndex].text}"</p> <p class="peter">	&#8212; Peter Griffin</p>`;
-};
-addQuote();
 
 const dateOptions = {
   day: "numeric",
