@@ -123,59 +123,6 @@ const deleteTodo = (index) => {
   createTodo(dailytaskForDay);
 };
 
-const calendarFunction = () => {
-  const firstDay = new Date(now.getFullYear(), now.getMonth());
-
-  if (firstDay.getDay() === 0) {
-    for (let i = 1; i < 7; i++) {
-      calendar.insertAdjacentHTML("afterbegin", "<div></div>");
-    }
-    for (let i = 1; i < 6; i++) {
-      calendar.insertAdjacentHTML("beforeend", "<div></div>");
-    }
-  }
-
-  for (let i = 0; i < calendar.childElementCount; i++) {
-    if (calendar.children[i].textContent === "") {
-      calendar.children[i].style.border = "none";
-    }
-    if (calendar.children[i].textContent == now.getDate()) {
-      let dayNumber = Number(calendar.children[i].textContent.slice(-2).trim());
-      calendar.children[i].style.backgroundColor = "var(--darker)";
-      calendar.children[i].style.color = "white";
-
-      todosArrSaved[dayNumber - 1].completedDailyTasks.map((x) => {
-        let btn = document.createElement("div");
-        let xMark = document.createElement("div");
-        let check = document.createElement("div");
-        let checkCompleted = document.createElement("div");
-        checkCompleted.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
-
-        let list = document.createElement("li");
-        list.innerText = x;
-        btn.appendChild(checkCompleted);
-        list.appendChild(btn);
-
-        listaCompletedUl.appendChild(list);
-        check.addEventListener("click", () => {
-          checkCompleted.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
-
-          check.innerHTML = "";
-          xMark.innerHTML = "";
-          btn.appendChild(checkCompleted);
-
-          list.appendChild(btn);
-
-          listaCompletedUl.appendChild(list);
-        });
-      });
-
-      createTodo(todosArrSaved[dayNumber - 1].dailytask);
-    }
-  }
-  localStorage.setItem("todosArrSaved", JSON.stringify(todosArrSaved));
-};
-calendarFunction();
 for (const day of days) {
   todosArrSaved.push({
     dayNumber: `${day.textContent}`,
@@ -292,3 +239,57 @@ clearTasks.addEventListener("click", () => {
   listaCompletedUl.innerHTML = "";
   localStorage.setItem("todosArrSaved", JSON.stringify(todosArrSaved));
 });
+
+const calendarFunction = () => {
+  const firstDay = new Date(now.getFullYear(), now.getMonth());
+
+  if (firstDay.getDay() === 0) {
+    for (let i = 1; i < 7; i++) {
+      calendar.insertAdjacentHTML("afterbegin", "<div></div>");
+    }
+    for (let i = 1; i < 6; i++) {
+      calendar.insertAdjacentHTML("beforeend", "<div></div>");
+    }
+  }
+
+  for (let i = 0; i < calendar.childElementCount; i++) {
+    if (calendar.children[i].textContent === "") {
+      calendar.children[i].style.border = "none";
+    }
+    if (calendar.children[i].textContent == now.getDate()) {
+      let dayNumber = Number(calendar.children[i].textContent.slice(-2).trim());
+      calendar.children[i].style.backgroundColor = "var(--darker)";
+      calendar.children[i].style.color = "white";
+
+      todosArrSaved[dayNumber - 1].completedDailyTasks.map((x) => {
+        let btn = document.createElement("div");
+        let xMark = document.createElement("div");
+        let check = document.createElement("div");
+        let checkCompleted = document.createElement("div");
+        checkCompleted.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+
+        let list = document.createElement("li");
+        list.innerText = x;
+        btn.appendChild(checkCompleted);
+        list.appendChild(btn);
+
+        listaCompletedUl.appendChild(list);
+        check.addEventListener("click", () => {
+          checkCompleted.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+
+          check.innerHTML = "";
+          xMark.innerHTML = "";
+          btn.appendChild(checkCompleted);
+
+          list.appendChild(btn);
+
+          listaCompletedUl.appendChild(list);
+        });
+      });
+
+      createTodo(todosArrSaved[dayNumber - 1].dailytask);
+    }
+  }
+  localStorage.setItem("todosArrSaved", JSON.stringify(todosArrSaved));
+};
+calendarFunction();
