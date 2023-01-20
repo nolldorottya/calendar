@@ -3,20 +3,12 @@ import quotes from "/quotes.json" assert { type: "json" };
 
 const addTask = document.querySelector(".add_task");
 const addTaskBtn = document.querySelector(".add_task--btn");
-// const name = document.querySelector(".name");
+
 const listaUl = document.querySelector(".lista_ul");
 const listaCompletedUl = document.querySelector(".lista_ul_completed");
 const clearTasks = document.querySelector(".clear_tasks_btn");
 const calendar = document.querySelector(".calendar");
-// const overlay = document.querySelector(".overlay");
-// const chooseTheme = document.querySelector(".choose_theme");
-// const purpleTheme = document.querySelector(".purple");
-// const greenTheme = document.querySelector(".green");
-// const blackTheme = document.querySelector(".black");
-const chooseThemeBtn = document.querySelector(".choose_theme--btn");
-const promptMessage = document.querySelector(".prompt_message");
-const nameInput = document.querySelector(".name_input");
-const nameBtn = document.querySelector(".name_input--btn");
+
 const quote = document.querySelector(".quotes");
 const days = document.querySelectorAll(".calendar > div");
 const date = document.querySelector(".date");
@@ -26,73 +18,12 @@ const todosArrSaved = localStorage.getItem("todosArrSaved")
   ? JSON.parse(localStorage.getItem("todosArrSaved"))
   : [];
 let todayTodo;
-//MOBILE/////////////////////////
 
 const addQuote = () => {
   let randomIndex = Math.trunc(Math.random() * quotes.length);
   quote.innerHTML = `<p>"${quotes[randomIndex].text}"</p> <p class="peter">	&#8212; Peter Griffin</p>`;
 };
 addQuote();
-
-// choose theme
-// purpleTheme.addEventListener("click", () => {
-//   document.documentElement.style.setProperty(
-//     "--darker",
-//     "rgba(125, 97, 239, 1)"
-//   );
-//   document.documentElement.style.setProperty(
-//     "--lighter",
-//     "rgba(226, 114, 188, 1)"
-//   );
-//   document.documentElement.style.setProperty(
-//     "--border",
-//     "rgba(125, 97, 239, 0.2)"
-//   );
-// });
-// greenTheme.addEventListener("click", () => {
-//   document.documentElement.style.setProperty(
-//     "--darker",
-//     "rgba(9, 208, 137, 1)"
-//   );
-//   document.documentElement.style.setProperty(
-//     "--lighter",
-//     "rgba(134, 231, 244, 1)"
-//   );
-//   document.documentElement.style.setProperty(
-//     "--border",
-//     "rgba(9, 208, 137, 0.2)"
-//   );
-// });
-// blackTheme.addEventListener("click", () => {
-//   document.documentElement.style.setProperty("--darker", "rgba(0, 0, 0, 1)");
-//   document.documentElement.style.setProperty(
-//     "--lighter",
-//     "rgba(175, 175, 175, 1)"
-//   );
-//   document.documentElement.style.setProperty("--border", "rgba(0, 0, 0, 0.2)");
-// });
-
-// chooseThemeBtn.addEventListener("click", () => {
-//   chooseTheme.classList.add("hidden");
-//   promptMessage.classList.remove("hidden");
-// });
-
-// nameBtn.addEventListener("click", () => {
-//   if (nameInput.value !== "") {
-//     name.textContent = `Have a nice day, ${nameInput.value}!`;
-//     promptMessage.classList.add("hidden");
-//     overlay.classList.add("hidden");
-//     addQuote();
-//   }
-// });
-// document.addEventListener("keydown", (e) => {
-//   if (nameInput.value !== "" && e.key === "Enter") {
-//     name.textContent = `Have a nice day, ${nameInput.value}!`;
-//     promptMessage.classList.add("hidden");
-//     overlay.classList.add("hidden");
-//     addQuote();
-//   }
-// });
 
 const dateOptions = {
   day: "numeric",
@@ -137,8 +68,6 @@ addTaskBtn.addEventListener("click", () => {
     addTask.value = "";
     createTodo(dailytaskForDay);
   }
-
-  // dayNumberFunction();
 });
 
 const createTodo = (arr) => {
@@ -265,12 +194,6 @@ for (const day of days) {
   if (todosArrSaved[dayNumb - 1].dailytask.length !== 0) {
     days[dayNumb - 1].classList.add("calendar_border");
   }
-  // if (
-  //   todosArrSaved[dayNumb - 1].dailytask.length === 0 &&
-  //   todosArrSaved[dayNumb - 1].completedDailyTasks.length !== 0
-  // ) {
-  //   days[dayNumb - 1].classList.add("completed_border");
-  // }
 }
 
 for (const day of days) {
