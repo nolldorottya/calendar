@@ -8,7 +8,6 @@ const listaCompletedUl = document.querySelector(".lista_ul_completed");
 const clearTasks = document.querySelector(".clear_tasks_btn");
 const calendar = document.querySelector(".calendar");
 
-const quote = document.querySelector(".quotes");
 const days = document.querySelectorAll(".calendar > div");
 const date = document.querySelector(".date");
 const titleDates = document.querySelectorAll(".title_date");
